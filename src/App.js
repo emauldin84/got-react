@@ -21,7 +21,7 @@ class App extends React.Component {
   }
 
   _getCharactersForPage = async () => {
-    const allCharsData = await axios.get(`https://my-little-cors-proxy.herokuapp.com/https://anapioficeandfire.com/api/characters?page=${this.state.pageNumber}&pageSize=10`);
+    const allCharsData = await axios.get(`https://my-little-cors-proxy.herokuapp.com/https://anapioficeandfire.com/api/characters?page=${this.state.pageNumber}&pageSize=20`);
     console.log(allCharsData.data);
     this.setState({
         allCharactersArray: allCharsData.data
@@ -54,14 +54,22 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <h5>Page: {this.state.pageNumber}</h5>
-        <h3>Characters</h3>
+      <div className="container">
+        <h5 className="pageNum">Page: {this.state.pageNumber}</h5>
         <button onClick={this._decrementPageNumber}>previous</button>
         <button onClick={this._incrementPageNumber}>next</button>
-        {this.state.allCharactersArray.map(character => <Character _handleClick={this._handleClick} data={character} />)}
-        <CharacterDetails character={this.state.characterObj}
-        />
+        <h3>Characters</h3>
+        <div className="row">
+          <div className="column1">
+            {this.state.allCharactersArray.map(character => <Character _handleClick={this._handleClick} data={character} />)}
+          </div>
+          <div className="column2">
+          <h3>Character Details</h3>
+            <CharacterDetails character={this.state.characterObj}
+            />
+          </div>
+          
+        </div>
       </div>
     );
   }

@@ -12,3 +12,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.container {
+  
+}
+.pageNum {
+  padding-left: 20px;
+}
+.row {
+  display: flex;
+}
+
+.column1 {
+  width: 60%;
+  height: 80vh;
+  padding-left: 20px;
+  overflow: scroll;
+}
+
+.column2 {
+  width: 30%;
+  padding-left: 10px;
+  padding-right: 20px;
+}
