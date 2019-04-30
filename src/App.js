@@ -4,6 +4,14 @@ import axios from 'axios';
 
 import CharacterDetails from './CharacterDetails'
 import Character from './Character'
+import SearchBar from './SearchBar'
+
+
+function searchingFor(searchWord) {
+  return function(x) {
+    return x.name.toLowerCase().includes(searchWord.toLowerCase()) || !searchWord;
+  }
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -13,6 +21,7 @@ class App extends React.Component {
       pageNumber: 1,
       characterObj: {},
       allCharactersArray: [],
+      searchWord: ''
     }
   }
 
@@ -50,6 +59,11 @@ class App extends React.Component {
       })
     console.log(this.state.characterObj)
   }
+  _searchHandler = (e) => {
+    this.setState({
+      searchWord: e.target.value
+    })
+  } 
 
 
   render() {
@@ -58,10 +72,11 @@ class App extends React.Component {
         <h5 className="pageNum">Page: {this.state.pageNumber}</h5>
         <button onClick={this._decrementPageNumber}>previous</button>
         <button onClick={this._incrementPageNumber}>next</button>
+        <SearchBar search={this._searchHandler}/>
         <h3>Characters</h3>
         <div className="row">
           <div className="column1">
-            {this.state.allCharactersArray.map(character => <Character _handleClick={this._handleClick} data={character} />)}
+            {this.state.allCharactersArray.filter(searchingFor(this.state.searchWord)).map(character => <Character _handleClick={this._handleClick} data={character} />)}
           </div>
           <div className="column2">
           <h3>Character Details</h3>
